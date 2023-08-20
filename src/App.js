@@ -1,10 +1,11 @@
+import headerLogo from './images/logo.svg';
 
 function App() {
   return (
-    <>
+    <div className="root">
     <div className="page">
       <header className="header">
-        <img src="./images/logo.svg" alt="Логотип" className="header__logo"/>
+        <img src={headerLogo} alt="Логотип" className="header__logo"/>
       </header>
       <main className="content">
         <section className="profile">
@@ -31,10 +32,10 @@ function App() {
       <div className="popup__container">
         <button className="popup__button-close" aria-label="Закрыть" type="button"></button>
         <h2 className="popup__title">Редактировать профиль</h2>
-        <form className="popup__form popup__form_type_edit" name="form-profile" novalidate>
-          <input id="username"  type="text" name="username" className="popup__input popup__input_type_name" minlength="2" maxlength="40" required placeholder="Введите имя"/>
+        <form className="popup__form popup__form_type_edit" name="form-profile" noValidate>
+          <input id="username"  type="text" name="username" className="popup__input popup__input_type_name" minLength="2" maxLength="40" required placeholder="Введите имя"/>
           <span className="error-username error-message"></span>
-          <input id="job" type="text" name="job" className="popup__input popup__input_type_about" minlength="2" maxlength="200" required placeholder="Укажите свой род деятельности"/>
+          <input id="job" type="text" name="job" className="popup__input popup__input_type_about" minLength="2" maxLength="200" required placeholder="Укажите свой род деятельности"/>
           <span className="error-job error-message"></span>
           <button type="submit" value="Сохранить" className="popup__submit popup__submit_type_edit" aria-label="Сохранить">Сохранить</button>
         </form>
@@ -45,8 +46,8 @@ function App() {
       <div className="popup__container">
         <button className="popup__button-close" aria-label="Закрыть" type="button"></button>
         <h2 className="popup__title">Новое место</h2>
-        <form className="popup__form popup__form_type_add" name="form-card" novalidate>
-          <input id="cardname" type="text" name="cardname" className="popup__input popup__input_type_card-name" minlength="2" maxlength="30" placeholder="Название" required/>
+        <form className="popup__form popup__form_type_add" name="form-card" noValidate>
+          <input id="cardname" type="text" name="cardname" className="popup__input popup__input_type_card-name" minLength="2" maxLength="30" placeholder="Название" required/>
           <span className="error-cardname error-message"></span>
           <input id="cardlink" type="url" name="link" className="popup__input popup__input_type_link" placeholder="Ссылка на картинку" required/>
           <span className="error-cardlink error-message"></span>
@@ -84,7 +85,7 @@ function App() {
         </div>
       </div>
     </template>
-    </>
+    </div>
   );
 }
 
