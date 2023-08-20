@@ -1,12 +1,10 @@
-import headerLogo from './images/logo.svg';
+import Header from "./Header.js";
 
 function App() {
   return (
     <div className="root">
     <div className="page">
-      <header className="header">
-        <img src={headerLogo} alt="Логотип" className="header__logo"/>
-      </header>
+      <Header/>
       <main className="content">
         <section className="profile">
           <div type="button" className="profile__overlay-img">
