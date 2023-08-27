@@ -1,11 +1,13 @@
 import React from 'react';
 import api from '../utils/Api';
+import Card from './Card';
 
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
 
   const[userName, setUserName] = React.useState();
   const[userDescription, setUserDescription] = React.useState();
   const[userAvatar, setUserAvatar] = React.useState();
+  const[cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getInfoProfile()
@@ -18,8 +20,22 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
         setUserAvatar(userAvatar);
       })
       .catch(console.error);
-  })
- 
+  });
+
+  React.useEffect(() => {
+    api.getCards()
+      .then((cards) => {
+        const cardsArray = cards.map((item => ({
+          name: item.name,
+          link: item.link,
+          likes: item.likes,
+          _id: item._id,
+          owner: item.owner
+        })))
+        setCards(cardsArray);
+      })
+      .catch(console.error);
+  });
 
   return(
     <main className="content">
@@ -36,7 +52,11 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
           </div>
           <button className="profile__button profile__button_type_add" onClick={onAddPlace} type="button" aria-label="Добавить"></button>
         </section>
-        <section className="elements"></section>
+        <section className="elements">
+        {cards.map(item => (
+          <Card key={item._id} {...item}/>
+        ))}
+        </section>
       </main>
   )
 };
