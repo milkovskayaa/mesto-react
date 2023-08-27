@@ -11,6 +11,7 @@ function App() {
   const[isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const[isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
 
+
   function handleEditProfileClick(){
     setEditProfilePopupOpen(true);
   };

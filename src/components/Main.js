@@ -1,16 +1,36 @@
 import React from 'react';
+import api from '../utils/Api';
+
 function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+
+  const[userName, setUserName] = React.useState();
+  const[userDescription, setUserDescription] = React.useState();
+  const[userAvatar, setUserAvatar] = React.useState();
+
+  React.useEffect(() => {
+    api.getInfoProfile()
+      .then((userData) => {
+        const userName = userData.name;
+        const userDescription = userData.about;
+        const userAvatar = userData.avatar;
+        setUserName(userName);
+        setUserDescription(userDescription);
+        setUserAvatar(userAvatar);
+      })
+      .catch(console.error);
+  })
+ 
 
   return(
     <main className="content">
         <section className="profile">
           <div type="button" className="profile__overlay-img" onClick={onEditAvatar}>
-            <img src="#" alt="Фотография профиля" className="profile__img"/>
+            <img src={userAvatar} alt="Фотография профиля" className="profile__img"/>
          </div>
           <div className="profile__info">
             <div className="profile__info-user">
-              <h1 className="profile__username"></h1>
-              <p className="profile__about"></p>
+              <h1 className="profile__username">{userName}</h1>
+              <p className="profile__about">{userDescription}</p>
             </div>
             <button className="profile__button profile__button_type_edit" onClick={onEditProfile} type="button" aria-label="Редактировать"></button>
           </div>
