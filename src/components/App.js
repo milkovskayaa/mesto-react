@@ -66,20 +66,6 @@ function App() {
         <button type="submit" value="Да" className="popup__submit popup__submit_type_confirm" aria-label="Подтвердить">Да</button>
       </div>
     </div>    
-    {/* темплейт карточки */}
-    <template id="template-card" className="card-template">
-      <div className="elements__item">
-        <img src="#" alt="" className="elements__img"/>
-        <div className="elements__about">
-          <h2 className="elements__name"></h2>
-          <div className="elements__like-group">
-            <button className="elements__like" type="button" aria-label="Лайк"></button>
-            <p className="elements__like-count">0</p>
-          </div>
-          <button className="elements__delete" type="button" aria-label="Удалить"></button>
-        </div>
-      </div>
-    </template>
     </div>
   );
 }
