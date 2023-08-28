@@ -20,7 +20,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
         setUserAvatar(userAvatar);
       })
       .catch(console.error);
-  });
+  },[]);
 
   React.useEffect(() => {
     api.getCards()
@@ -35,7 +35,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
         setCards(cardsArray);
       })
       .catch(console.error);
-  });
+  },[]);
 
   return(
     <main className="content">
