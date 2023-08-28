@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../utils/Api';
 import Card from './Card';
 
-function Main({onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
 
   const[userName, setUserName] = React.useState();
   const[userDescription, setUserDescription] = React.useState();
@@ -54,7 +54,7 @@ function Main({onEditProfile, onAddPlace, onEditAvatar}) {
         </section>
         <section className="elements">
         {cards.map(item => (
-          <Card key={item._id} {...item}/>
+          <Card key={item._id} onCardClick={onCardClick} {...item}/>
         ))}
         </section>
       </main>

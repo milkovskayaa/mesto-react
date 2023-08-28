@@ -1,9 +1,14 @@
 import React from "react";
 
-function Card({...props}) {
+function Card({onCardClick, ...props}) {
+
+  function handleClick() {
+    onCardClick(props);
+  }  
+
   return(
     <div className="elements__item">
-    <img src={props.link} alt={props.name} className="elements__img"/>
+    <img src={props.link} alt={props.name} className="elements__img" onClick={handleClick}/>
     <div className="elements__about">
       <h2 className="elements__name">{props.name}</h2>
       <div className="elements__like-group">

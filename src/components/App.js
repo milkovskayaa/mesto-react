@@ -10,7 +10,14 @@ function App() {
   const[isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const[isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const[isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const[isImagePopupOpen, setImagePopupOpen] = React.useState(false);
+  const[selectedCard, setSelectedCard] = React.useState({});
 
+
+  function handleCardClick(cardData) {
+    setImagePopupOpen(true);
+    setSelectedCard(cardData);
+  }
 
   function handleEditProfileClick(){
     setEditProfilePopupOpen(true);
@@ -28,16 +35,18 @@ function App() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
     setEditAvatarPopupOpen(false);
+    setImagePopupOpen(false);
+    setSelectedCard({});
   }
 
   return (
     <div className="root">
       <div className="page">
         <Header/>
-        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
+        <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
         <Footer/>
       </div>
-      <ImagePopup/>
+      <ImagePopup onClose={closeAllPopups} isOpen={isImagePopupOpen} card={selectedCard}/>
       {/* попап редактирования профиля */}
       <PopupWithForm isOpen={isEditProfilePopupOpen} name={'edit-profile'} title={'Редактировать профиль'} buttonText={'Сохранить'} onClose={closeAllPopups}>
         <input id="username"  type="text" name="username" className="popup__input popup__input_type_name" minLength="2" maxLength="40" required placeholder="Введите имя"/>
@@ -57,15 +66,6 @@ function App() {
         <input id="avatar" type="url" name="avatar" className="popup__input popup__input_type_link" required placeholder="Ссылка на изображение"/>
         <span className="error-avatar error-message"></span>
       </PopupWithForm>
- 
-    {/* попап удаления карточки */}
-    <div className="popup popup_confirm">
-      <div className="popup__container">
-        <button className="popup__button-close" aria-label="Закрыть" type="button"></button>
-        <h2 className="popup__title">Вы уверены?</h2>
-        <button type="submit" value="Да" className="popup__submit popup__submit_type_confirm" aria-label="Подтвердить">Да</button>
-      </div>
-    </div>    
     </div>
   );
 }
