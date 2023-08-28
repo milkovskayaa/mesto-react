@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/mesto-react/static/css/main.94809555.css",
+    "main.js": "/mesto-react/static/js/main.25d8d133.js",
+    "static/media/Inter-Black.ttf": "/mesto-react/static/media/Inter-Black.143c28420846d45c5834.ttf",
+    "static/media/Inter-Medium.ttf": "/mesto-react/static/media/Inter-Medium.6dcbc9bed1ec438907ee.ttf",
+    "static/media/Inter-Regular.ttf": "/mesto-react/static/media/Inter-Regular.e89cb19905e7db5591b0.ttf",
+    "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.f4d11c8a0b8ff301493a.woff",
+    "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.79351a58ea3cce665a26.woff",
+    "static/media/Inter-Regular.woff": "/mesto-react/static/media/Inter-Regular.82b33bba13f72a5a5a37.woff",
+    "static/media/Inter-Medium.woff2": "/mesto-react/static/media/Inter-Medium.8a50feca5194fae5cc45.woff2",
+    "static/media/Inter-Black.woff2": "/mesto-react/static/media/Inter-Black.51d61d733d65ebf2458a.woff2",
+    "static/media/Inter-Regular.woff2": "/mesto-react/static/media/Inter-Regular.6fcad65b7a8f7ffabb8e.woff2",
+    "static/media/logo.svg": "/mesto-react/static/media/logo.bbe2a6eafac19c3d031c272c424875ca.svg",
+    "static/media/like.svg": "/mesto-react/static/media/like.87ed371465c7a6a1cd01.svg",
+    "static/media/deletebtn.svg": "/mesto-react/static/media/deletebtn.823b0cf1b0b7e9cb7cad.svg",
+    "static/media/Union.svg": "/mesto-react/static/media/Union.fe17a515669479b1e649.svg",
+    "index.html": "/mesto-react/index.html",
+    "static/media/pencil.svg": "/mesto-react/static/media/pencil.8667ac4a523e8fc42e59.svg",
+    "static/media/pencilProfile.svg": "/mesto-react/static/media/pencilProfile.a086f758840ae814ecde.svg",
+    "static/media/Close-Icon.svg": "/mesto-react/static/media/Close-Icon.2ceb783afbab75916ddc.svg",
+    "static/media/add.svg": "/mesto-react/static/media/add.d86bb2edc2f6eadb96b7.svg",
+    "static/media/CloseIcon-2.svg": "/mesto-react/static/media/CloseIcon-2.b793e07c3f4c19e26c11.svg",
+    "main.94809555.css.map": "/mesto-react/static/css/main.94809555.css.map",
+    "main.25d8d133.js.map": "/mesto-react/static/js/main.25d8d133.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.94809555.css",
+    "static/js/main.25d8d133.js"
+  ]
+}
