@@ -1,16 +1,16 @@
-import React from 'react';
-import api from '../utils/api';
-import Card from './Card';
+import React from "react";
+import api from "../utils/api";
+import Card from "./Card";
 
-function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-
-  const[userName, setUserName] = React.useState();
-  const[userDescription, setUserDescription] = React.useState();
-  const[userAvatar, setUserAvatar] = React.useState();
-  const[cards, setCards] = React.useState([]);
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getInfoProfile()
+    api
+      .getInfoProfile()
       .then((userData) => {
         const userName = userData.name;
         const userDescription = userData.about;
@@ -20,45 +20,56 @@ function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
         setUserAvatar(userAvatar);
       })
       .catch(console.error);
-  },[]);
+  }, []);
 
   React.useEffect(() => {
-    api.getCards()
+    api
+      .getCards()
       .then((cards) => {
-        const cardsArray = cards.map((item => ({
-          name: item.name,
-          link: item.link,
-          likes: item.likes,
-          _id: item._id,
-          owner: item.owner
-        })))
-        setCards(cardsArray);
+        setCards(cards);
       })
       .catch(console.error);
-  },[]);
+  }, []);
 
-  return(
+  return (
     <main className="content">
-        <section className="profile">
-          <div type="button" className="profile__overlay-img" onClick={onEditAvatar}>
-            <img src={userAvatar} alt="Фотография профиля" className="profile__img"/>
-         </div>
-          <div className="profile__info">
-            <div className="profile__info-user">
-              <h1 className="profile__username">{userName}</h1>
-              <p className="profile__about">{userDescription}</p>
-            </div>
-            <button className="profile__button profile__button_type_edit" onClick={onEditProfile} type="button" aria-label="Редактировать"></button>
+      <section className="profile">
+        <div
+          className="profile__overlay-img"
+          onClick={onEditAvatar}
+        >
+          <img
+            src={userAvatar}
+            alt="Фотография профиля"
+            className="profile__img"
+          />
+        </div>
+        <div className="profile__info">
+          <div className="profile__info-user">
+            <h1 className="profile__username">{userName}</h1>
+            <p className="profile__about">{userDescription}</p>
           </div>
-          <button className="profile__button profile__button_type_add" onClick={onAddPlace} type="button" aria-label="Добавить"></button>
-        </section>
-        <section className="elements">
-        {cards.map(item => (
-          <Card key={item._id} onCardClick={onCardClick} {...item}/>
+          <button
+            className="profile__button profile__button_type_edit"
+            onClick={onEditProfile}
+            type="button"
+            aria-label="Редактировать"
+          ></button>
+        </div>
+        <button
+          className="profile__button profile__button_type_add"
+          onClick={onAddPlace}
+          type="button"
+          aria-label="Добавить"
+        ></button>
+      </section>
+      <section className="elements">
+        {cards.map((item) => (
+          <Card key={item._id} onCardClick={onCardClick} {...item} />
         ))}
-        </section>
-      </main>
-  )
-};
+      </section>
+    </main>
+  );
+}
 
 export default Main;
