@@ -15,35 +15,56 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+
+  // получение карточек с сервера
+  React.useEffect(() => {
+    api
+      .getCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch(console.error);
+  }, []);
 
   // получение данных о пользователе с сервера
   React.useEffect(() => {
     api
       .getInfoProfile()
       .then((userData) => {
-        console.log(userData)
+        console.log(userData);
         setCurrentUser(userData);
       })
       .catch(console.error);
   }, []);
 
+  // лайки карточек
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((item) => item._id === currentUser._id);
+    api.onLikeCard(card._id, !isLiked).then((newCard) => {
+      setCards((state) => {
+        return state.map((c) => (c._id === card._id ? newCard : c));
+      });
+    });
+  }
+  // открытие попапа с картинкой
   function handleCardClick(cardData) {
     setImagePopupOpen(true);
     setSelectedCard(cardData);
   }
-
+  // открытие попапа редактирования профиля
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
-
+  // открытие попапа добавления карточки
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
-
+  // открытие попапа редактирования аватара
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
-
+  // закрытие всех попапов
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -51,7 +72,6 @@ function App() {
     setImagePopupOpen(false);
     setSelectedCard({});
   }
-
 
   return (
     <div className="root">
@@ -63,6 +83,8 @@ function App() {
             onAddPlace={handleAddPlaceClick}
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            cards={cards}
           />
           <Footer />
         </div>

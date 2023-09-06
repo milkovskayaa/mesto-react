@@ -1,28 +1,21 @@
 import React from "react";
-import api from "../utils/api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  onCardLike,
+  cards,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch(console.error);
-  }, []);
 
   return (
     <main className="content">
       <section className="profile">
-        <div
-          className="profile__overlay-img"
-          onClick={onEditAvatar}
-        >
+        <div className="profile__overlay-img" onClick={onEditAvatar}>
           <img
             src={currentUser.avatar}
             alt="Фотография профиля"
@@ -50,7 +43,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       </section>
       <section className="elements">
         {cards.map((item) => (
-          <Card key={item._id} onCardClick={onCardClick} {...item} />
+          <Card
+            key={item._id}
+            onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            {...item}
+          />
         ))}
       </section>
     </main>
