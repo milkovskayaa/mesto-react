@@ -32,7 +32,6 @@ function App() {
     api
       .getInfoProfile()
       .then((userData) => {
-        console.log(userData);
         setCurrentUser(userData);
       })
       .catch(console.error);
@@ -41,11 +40,19 @@ function App() {
   // лайки карточек
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
-    api.onLikeCard(card._id, !isLiked).then((newCard) => {
-      setCards((state) => {
-        return state.map((c) => (c._id === card._id ? newCard : c));
+    if (!isLiked) {
+      api.onLikeCard(card._id, !isLiked).then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
       });
-    });
+    } else {
+      api.deleteLikeCard(card._id, !isLiked).then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
+      });
+    }
   }
   // открытие попапа с картинкой
   function handleCardClick(cardData) {

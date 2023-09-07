@@ -42,7 +42,7 @@ function Main({
         ></button>
       </section>
       <section className="elements">
-        {cards.map((item) => (
+        {cards.map(item => (
           <Card
             key={item._id}
             onCardClick={onCardClick}
