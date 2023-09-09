@@ -1,11 +1,11 @@
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ onCardClick, onCardLike, ...props }) {
+function Card({ onCardClick, onCardLike, onCardDelete, ...props }) {
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = props.owner._id === currentUser._id;
   const isLiked = props.likes.some((i) => i._id === currentUser._id);
-  
+
   const cardLikeButtonClassName = `elements__like ${
     isLiked && "elements__like_active"
   }`;
@@ -17,6 +17,11 @@ function Card({ onCardClick, onCardLike, ...props }) {
   function handleClick() {
     onCardClick(props);
   }
+
+  function handleCardDelete() {
+    onCardDelete(props);
+  }
+
 
   return (
     <div className="elements__item">
@@ -42,6 +47,7 @@ function Card({ onCardClick, onCardLike, ...props }) {
             className="elements__delete"
             type="button"
             aria-label="Удалить"
+            onClick={handleCardDelete}
           ></button>
         )}
       </div>

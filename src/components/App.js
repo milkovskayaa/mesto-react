@@ -41,18 +41,33 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     if (!isLiked) {
-      api.onLikeCard(card._id, !isLiked).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+      api.onLikeCard(card._id, !isLiked)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch(console.error);
     } else {
-      api.deleteLikeCard(card._id, !isLiked).then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard : c))
-        );
-      });
+      api.deleteLikeCard(card._id, !isLiked)
+        .then((newCard) => {
+          setCards((state) =>
+            state.map((c) => (c._id === card._id ? newCard : c))
+          );
+        })
+        .catch(console.error);
     }
+  }
+  // удаление карточки
+  function handleCardDelete(card) {
+    console.log(card)
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => {
+         return state.filter((c) => c._id !== card._id);
+        });
+      })
+      .catch(console.error);
   }
   // открытие попапа с картинкой
   function handleCardClick(cardData) {
@@ -92,6 +107,7 @@ function App() {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             cards={cards}
+            onCardDelete={handleCardDelete}
           />
           <Footer />
         </div>
