@@ -98,7 +98,6 @@ function App() {
 
   // добавление карточки
   function handleAddPlaceSubmit(data) {
-    console.log(data)
     api
       .postNewCard(data.cardName, data.cardImageLink)
       .then((newCard) => {

@@ -18,10 +18,10 @@ function AddPlacePopup({ onAddPlace, isOpen, onClose }) {
     onAddPlace({ cardName, cardImageLink });
   }
 
-  // React.useEffect(() => {
-  //   setCardName("");
-  //   setCardImageLink("");
-  // }, [isOpen]);
+  React.useEffect(() => {
+    setCardName("");
+    setCardImageLink("");
+  }, [isOpen]);
 
   return (
     <PopupWithForm
