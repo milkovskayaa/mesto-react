@@ -3,9 +3,9 @@ import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import ImagePopup from "./ImagePopup.js";
-import PopupWithForm from "./PopupWithForm.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
+import AddPlacePopup from "./AddPlacePopup.js";
 import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -62,6 +62,7 @@ function App() {
         .catch(console.error);
     }
   }
+
   // удаление карточки
   function handleCardDelete(card) {
     api
@@ -73,7 +74,7 @@ function App() {
       })
       .catch(console.error);
   }
-// обновление информации о пользователе
+  // обновление информации о пользователе
   function handleUpdateUser(data) {
     api
       .updateUserInfo(data.name, data.description)
@@ -86,12 +87,25 @@ function App() {
 
   // обновление аватара
   function handleUpdateAvatar(data) {
-    api.updateAvatar(data.avatar)
-    .then((res) => {
-      setCurrentUser(res);
-      closeAllPopups();
-    })
-    .catch(console.error);
+    api
+      .updateAvatar(data.avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
+  // добавление карточки
+  function handleAddPlaceSubmit(data) {
+    console.log(data)
+    api
+      .postNewCard(data.cardName, data.cardImageLink)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch(console.error);
   }
 
   // открытие попапа с картинкой
@@ -99,18 +113,22 @@ function App() {
     setImagePopupOpen(true);
     setSelectedCard(cardData);
   }
+
   // открытие попапа редактирования профиля
   function handleEditProfileClick() {
     setEditProfilePopupOpen(true);
   }
+
   // открытие попапа добавления карточки
   function handleAddPlaceClick() {
     setAddPlacePopupOpen(true);
   }
+
   // открытие попапа редактирования аватара
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
+
   // закрытие всех попапов
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
@@ -148,36 +166,17 @@ function App() {
           onClose={closeAllPopups}
         />
         {/* попап добавления карточки */}
-        <PopupWithForm
+        <AddPlacePopup
+          onAddPlace={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
-          name={"add-card"}
-          title={"Новое место"}
-          buttonText={"Создать"}
           onClose={closeAllPopups}
-        >
-          <input
-            id="cardname"
-            type="text"
-            name="cardname"
-            className="popup__input popup__input_type_card-name"
-            minLength="2"
-            maxLength="30"
-            placeholder="Название"
-            required
-          />
-          <span className="error-cardname error-message"></span>
-          <input
-            id="cardlink"
-            type="url"
-            name="link"
-            className="popup__input popup__input_type_link"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="error-cardlink error-message"></span>
-        </PopupWithForm>
+        />
         {/* попап обновления аватара */}
-        <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup
+          onUpdateAvatar={handleUpdateAvatar}
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        />
       </CurrentUserContext.Provider>
     </div>
   );
