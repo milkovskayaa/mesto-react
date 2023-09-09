@@ -84,6 +84,16 @@ function App() {
       .catch(console.error);
   }
 
+  // обновление аватара
+  function handleUpdateAvatar(data) {
+    api.updateAvatar(data.avatar)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch(console.error);
+  }
+
   // открытие попапа с картинкой
   function handleCardClick(cardData) {
     setImagePopupOpen(true);
@@ -167,7 +177,7 @@ function App() {
           <span className="error-cardlink error-message"></span>
         </PopupWithForm>
         {/* попап обновления аватара */}
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </div>
   );
