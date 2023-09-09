@@ -42,7 +42,8 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     if (!isLiked) {
-      api.onLikeCard(card._id, !isLiked)
+      api
+        .onLikeCard(card._id, !isLiked)
         .then((newCard) => {
           setCards((state) =>
             state.map((c) => (c._id === card._id ? newCard : c))
@@ -50,7 +51,8 @@ function App() {
         })
         .catch(console.error);
     } else {
-      api.deleteLikeCard(card._id, !isLiked)
+      api
+        .deleteLikeCard(card._id, !isLiked)
         .then((newCard) => {
           setCards((state) =>
             state.map((c) => (c._id === card._id ? newCard : c))
@@ -61,14 +63,26 @@ function App() {
   }
   // удаление карточки
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    api
+      .deleteCard(card._id)
       .then(() => {
         setCards((state) => {
-         return state.filter((c) => c._id !== card._id);
+          return state.filter((c) => c._id !== card._id);
         });
       })
       .catch(console.error);
   }
+
+  function handleUpdateUser(data) {
+    api
+      .updateUserInfo(data.name, data.description)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+      .catch(console.error);
+  }
+
   // открытие попапа с картинкой
   function handleCardClick(cardData) {
     setImagePopupOpen(true);
@@ -117,7 +131,11 @@ function App() {
           card={selectedCard}
         />
         {/* попап редактирования профиля */}
-        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup
+          onUpdateUser={handleUpdateUser}
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        />
         {/* попап добавления карточки */}
         <PopupWithForm
           isOpen={isAddPlacePopupOpen}
