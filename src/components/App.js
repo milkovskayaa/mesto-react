@@ -5,6 +5,7 @@ import Footer from "./Footer.js";
 import ImagePopup from "./ImagePopup.js";
 import PopupWithForm from "./PopupWithForm.js";
 import EditProfilePopup from "./EditProfilePopup.js";
+import EditAvatarPopup from "./EditAvatarPopup.js";
 import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -72,7 +73,7 @@ function App() {
       })
       .catch(console.error);
   }
-
+// обновление информации о пользователе
   function handleUpdateUser(data) {
     api
       .updateUserInfo(data.name, data.description)
@@ -166,23 +167,7 @@ function App() {
           <span className="error-cardlink error-message"></span>
         </PopupWithForm>
         {/* попап обновления аватара */}
-        <PopupWithForm
-          isOpen={isEditAvatarPopupOpen}
-          name={"update-avatar"}
-          title={"Обновить аватар"}
-          buttonText={"Сохранить"}
-          onClose={closeAllPopups}
-        >
-          <input
-            id="avatar"
-            type="url"
-            name="avatar"
-            className="popup__input popup__input_type_link"
-            required
-            placeholder="Ссылка на изображение"
-          />
-          <span className="error-avatar error-message"></span>
-        </PopupWithForm>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
       </CurrentUserContext.Provider>
     </div>
   );
