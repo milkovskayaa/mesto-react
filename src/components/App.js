@@ -4,6 +4,7 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import ImagePopup from "./ImagePopup.js";
 import PopupWithForm from "./PopupWithForm.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 import api from "../utils/api.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
@@ -60,7 +61,6 @@ function App() {
   }
   // удаление карточки
   function handleCardDelete(card) {
-    console.log(card)
     api.deleteCard(card._id)
       .then(() => {
         setCards((state) => {
@@ -117,36 +117,7 @@ function App() {
           card={selectedCard}
         />
         {/* попап редактирования профиля */}
-        <PopupWithForm
-          isOpen={isEditProfilePopupOpen}
-          name={"edit-profile"}
-          title={"Редактировать профиль"}
-          buttonText={"Сохранить"}
-          onClose={closeAllPopups}
-        >
-          <input
-            id="username"
-            type="text"
-            name="username"
-            className="popup__input popup__input_type_name"
-            minLength="2"
-            maxLength="40"
-            required
-            placeholder="Введите имя"
-          />
-          <span className="error-username error-message"></span>
-          <input
-            id="job"
-            type="text"
-            name="job"
-            className="popup__input popup__input_type_about"
-            minLength="2"
-            maxLength="200"
-            required
-            placeholder="Укажите свой род деятельности"
-          />
-          <span className="error-job error-message"></span>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
         {/* попап добавления карточки */}
         <PopupWithForm
           isOpen={isAddPlacePopupOpen}
