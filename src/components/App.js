@@ -44,7 +44,7 @@ function App() {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     if (!isLiked) {
       api
-        .onLikeCard(card._id, !isLiked)
+        .onLikeCard(card._id)
         .then((newCard) => {
           setCards((state) =>
             state.map((c) => (c._id === card._id ? newCard : c))
@@ -53,7 +53,7 @@ function App() {
         .catch(console.error);
     } else {
       api
-        .deleteLikeCard(card._id, !isLiked)
+        .deleteLikeCard(card._id)
         .then((newCard) => {
           setCards((state) =>
             state.map((c) => (c._id === card._id ? newCard : c))

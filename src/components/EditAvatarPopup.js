@@ -4,17 +4,16 @@ import PopupWithForm from "./PopupWithForm";
 function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
   const avatarRef = React.useRef();
 
-  function handleAvatarChange(e) {
-    avatarRef.value = e.target.value;
-  }
-
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
-    avatarRef.current.value = "";
   }
+
+  React.useEffect(() => {
+    avatarRef.current.value = "";
+  }, [isOpen])
 
   return (
     <PopupWithForm
@@ -28,7 +27,6 @@ function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
       <input
         id="avatar"
         ref={avatarRef}
-        onChange={handleAvatarChange}
         type="url"
         name="avatar"
         className="popup__input popup__input_type_link"
